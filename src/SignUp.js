@@ -22,7 +22,8 @@ export class SignUp extends Component {
     },
     formValid: false,
     authError: "",
-    createError: ""
+    createError: "",
+    loading: false
   };
 
   onChange = e => {
@@ -71,23 +72,26 @@ export class SignUp extends Component {
     }
   };
 
-  onSubmit = async event => {
+  onSubmit = event => {
     event.preventDefault();
-    const { email, password, displayName } = this.state.inputs;
 
-    try {
-      //createUserWithEmailAndPassword will sign in automatically and fire off listener in AuthContext
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
+    this.setState({ loading: true }, async () => {
+      const { email, password, displayName } = this.state.inputs;
 
-      // Run helper function to add displayName property to user profile
-      await createUserProfileDocument(user, {
-        displayName
-      });
+      try {
+        //createUserWithEmailAndPassword will sign in automatically and fire off listener in AuthContext
+        const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
-      this.props.history.push("/");
-    } catch (error) {
-      this.setState({ createError: error.message });
-    }
+        // Run helper function to add displayName property to user profile
+        await createUserProfileDocument(user, {
+          displayName
+        });
+
+        this.props.history.push("/");
+      } catch (error) {
+        this.setState({ loading: false, createError: error.message });
+      }
+    });
   };
 
   render() {
@@ -95,7 +99,8 @@ export class SignUp extends Component {
       inputs: { email, password, displayName, confirmPassword },
       errors,
       formValid,
-      createError
+      createError,
+      loading
     } = this.state;
 
     return (
@@ -151,8 +156,19 @@ export class SignUp extends Component {
 
         {createError && <SubmitError message={createError} />}
 
-        <button className="btn btn-info my-4 btn-block" disabled={!formValid} type="submit">
-          Sign up
+        <button
+          className="btn btn-info my-4 btn-block"
+          disabled={!formValid || loading}
+          type="submit"
+        >
+          {loading && (
+            <span
+              className="spinner-border spinner-border-sm mr-2"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          )}
+          {loading ? "Signing up" : "Sign up"}
         </button>
         <GoogleSignIn />
       </form>

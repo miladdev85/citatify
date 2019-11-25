@@ -35,6 +35,8 @@ export class SignIn extends Component {
   onSubmit = event => {
     event.preventDefault();
 
+    // Set state first so we can use the loading state and display it in the UI.
+
     this.setState({ loading: true }, async () => {
       const { email, password } = this.state;
 
@@ -88,7 +90,7 @@ export class SignIn extends Component {
               role="status"
               aria-hidden="true"
             ></span>
-          )}{" "}
+          )}
           {loading ? "Signing in" : "Sign in"}
         </button>
         <p>
