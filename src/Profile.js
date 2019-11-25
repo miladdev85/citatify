@@ -14,7 +14,7 @@ const Profile = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
+    // Use helper function to get reference to the user. After we get the ref, update the user
     if (displayName) {
       const userRef = await getUserReference(getUid());
       userRef.update({ displayName });
