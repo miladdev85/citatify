@@ -15,10 +15,7 @@ const CurrentUser = ({ displayName, photoURL, email, createdAt }) => {
             <p className="mb-0">E-mail: {email}</p>
             <p className="mb-0">Joined: {convertFirestoreDate(createdAt)}</p>
           </div>
-          <Link
-            to="/profile"
-            className="btn text-secondary btn-link align-self-start p-0 m-0 mt-auto"
-          >
+          <Link to="/profile" className="btn text-info btn-link align-self-start p-0 m-0 mt-auto">
             Edit profile
           </Link>
         </div>
