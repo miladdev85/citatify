@@ -54,6 +54,8 @@ const Profile = () => {
     }
 
     // Add image and set states. Using storage functions from firebase
+    // Create  /user-profiles/uid folder in firestore and upload the image
+    // getDownloadURL returns a promise with url to the uploaded image which we update the user profile with
 
     if (image) {
       setLoading(true);
@@ -89,7 +91,12 @@ const Profile = () => {
         </div>
 
         {imageUrl && (
-          <img src={imageUrl} alt="profile" className="img-fluid img-thumbnail d-block my-4" />
+          <div className="row">
+            <div className="col-3 col-md-2 my-4">
+              <img src={imageUrl} alt="profile" className="img-fluid img-thumbnail" />
+              <p className="text-muted">{image.name}</p>
+            </div>
+          </div>
         )}
 
         {error && <SubmitError message={error} />}

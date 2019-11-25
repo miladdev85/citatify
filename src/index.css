@@ -11,6 +11,25 @@ body {
   background-image: url(https://d39uo3k0liehyo.cloudfront.net/roadmap-v2/images/bg-pattern.png);
 }
 
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+}
+
+.edit-btn {
+  line-height: 0.8;
+}
+
 .customcontainer {
   max-width: 60rem;
   margin: 5rem auto;
@@ -33,20 +52,6 @@ body {
   transform: scale(1.2);
 }
 
-.logo {
-  height: 2.3rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-}
-
-.logo:hover {
-  transform: scale(1.2);
-}
-
-.logo:active {
-  transform: scale(0.8);
-}
-
 .signin {
   cursor: pointer;
   color: #de6b48;
@@ -57,13 +62,13 @@ body {
 }
 
 .logotitle {
-  font-size: 2rem;
+  font-size: 1.9rem;
   text-transform: uppercase;
   margin-bottom: 0;
 }
 
 .logotitle::first-letter {
-  font-size: 2.4rem;
+  font-size: 2.9rem;
   color: #de6b48;
 }
 
@@ -106,7 +111,7 @@ body::-webkit-scrollbar-thumb {
 
 @media only screen and (min-width: 900px) {
   .btn_text {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   .btn-text:active {
     text-decoration: none;
@@ -127,6 +132,27 @@ body::-webkit-scrollbar-thumb {
   .customcontainer {
     margin: 0;
     min-height: 100vh;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .logotitle {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  .logotitle::first-letter {
+    font-size: 2rem;
+    color: #de6b48;
+  }
+
+  .logotitle:active {
+    color: #de6b48;
+  }
+
+  .btn_text {
+    font-size: 0.8rem;
   }
 }
 

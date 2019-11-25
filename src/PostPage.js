@@ -22,6 +22,7 @@ const PostPage = ({ match }) => {
     const unsubscribeFromComments = db
       .doc(`posts/${postId}`)
       .collection("comments")
+      .orderBy("createdAt", "desc")
       .onSnapshot(snapshot => {
         const comments = snapshot.docs.map(collectIdsAndDocs);
         setComments(comments);

@@ -1,5 +1,6 @@
 import React from "react";
 import { convertFirestoreDate } from "./Utils/utilities";
+import noProfileImage from "./Assets/noprofile.jpg";
 
 const Comment = ({ content, user, createdAt }) => {
   return (
@@ -7,7 +8,11 @@ const Comment = ({ content, user, createdAt }) => {
       <div className="rounded-0">
         <div className="row" style={{ marginLeft: "10px", marginRight: "10px" }}>
           <div className="col-3 col-md-1 pl-0">
-            <img src={user.photoUrl} alt="profile" className="img-fluid" />
+            <img
+              src={user.photoURL ? user.photoURL : noProfileImage}
+              alt="profile"
+              className="img-fluid"
+            />
           </div>
           <div className="col-9 col-md-11 border">
             <p className="text-muted small mt-1 mb-0 py-1">
