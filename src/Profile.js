@@ -1,14 +1,24 @@
 import React, { useState } from "react";
+import { auth, getUserReference } from "./Utils/firebase";
 
 const Profile = () => {
   const [displayName, setDisplayName] = useState("");
+
+  const getUid = () => {
+    return auth.currentUser.uid;
+  };
 
   const handleChange = event => {
     setDisplayName(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
+
+    if (displayName) {
+      const userRef = await getUserReference(getUid());
+      userRef.update({ displayName });
+    }
   };
 
   return (
@@ -18,7 +28,7 @@ const Profile = () => {
           type="text"
           name="displayName"
           className="form-control"
-          placeholder="Name"
+          placeholder="Display Name"
           onChange={handleChange}
           value={displayName}
         />
