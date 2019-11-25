@@ -13,7 +13,8 @@ export class SignIn extends Component {
     errorMessage: {
       email: ""
     },
-    authError: ""
+    authError: "",
+    loading: false
   };
 
   onChange = e => {
@@ -31,21 +32,26 @@ export class SignIn extends Component {
     });
   };
 
-  onSubmit = async event => {
+  onSubmit = event => {
     event.preventDefault();
 
-    const { email, password } = this.state;
+    this.setState({ loading: true }, async () => {
+      const { email, password } = this.state;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.props.history.push("/");
-    } catch (error) {
-      this.setState({ authError: "Incorrect e-mail or password. Please try again" });
-    }
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        this.props.history.push("/");
+      } catch (error) {
+        this.setState({
+          loading: false,
+          authError: "Incorrect e-mail or password. Please try again"
+        });
+      }
+    });
   };
 
   render() {
-    const { email, password, errorMessage, authError } = this.state;
+    const { email, password, errorMessage, authError, loading } = this.state;
     const isEnabled = email.length > 0 && password.length > 0 && errorMessage.email < 1;
 
     return (
@@ -71,8 +77,19 @@ export class SignIn extends Component {
           value={password}
         />
         {authError && <SubmitError message={authError} />}
-        <button className="btn btn-info btn-block my-4" disabled={!isEnabled} type="submit">
-          Sign in
+        <button
+          className="btn btn-info btn-block my-4"
+          disabled={!isEnabled || loading}
+          type="submit"
+        >
+          {loading && (
+            <span
+              className="spinner-border spinner-border-sm mr-2"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          )}{" "}
+          {loading ? "Signing in" : "Sign in"}
         </button>
         <p>
           Not a member?
