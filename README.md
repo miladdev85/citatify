@@ -1,5 +1,5 @@
 # Citatify
-Community for sharing and reading quotes.
+Community for sharing and reading quotes.</br>
 Keywords: React, Context, Firestore / Firebase, Google OAuth, ES6+, Async / Await, CSS, MD Bootstrap.
 
 ---------------------------------------
