@@ -43,6 +43,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### `npm run build && firebase deploy`
 
-Builds the app and deploys it to Firebase. In order to do this you have to initialize a Firebase project that can be used for the Firebase hosting features. Step by step guide after running `npm install` :
+Builds the app and deploys it to Firebase with hosting features. In order to do this you have to initialize a Firebase project that can be used for the Firebase hosting features. Step by step guide:
+
+1. `npm install` to install all dependencies and packages
+2. `firebase login` to associate the Firebase CLI with a Firebase account
+3. `firebase init` will initialize a Firebase project that can be used for the Firebase hosting features
 
 
