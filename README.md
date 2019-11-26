@@ -48,5 +48,7 @@ Builds the app and deploys it to Firebase with hosting features. In order to do 
 1. `npm install` to install all dependencies and packages
 2. `firebase login` to associate the Firebase CLI with a Firebase account
 3. `firebase init` will initialize a Firebase project that can be used for the Firebase hosting features
+4. Follow the guide in Firebase CLI to configure
+5. `firebase deploy` to deploy the application
 
-
+After the initial initialization you can run `npm run build && firebase deploy` to build and deploy to Firebase.
