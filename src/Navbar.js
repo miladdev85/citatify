@@ -18,7 +18,7 @@ const Navbar = ({ currentUser }) => {
             </button>
           ) : (
             <NavLink
-              activeClassName="text-muted"
+              activeClassName="text-muted link-active"
               className="btn btn-link p-0 ml-3 m-0"
               exact
               to="/signin"
@@ -27,7 +27,12 @@ const Navbar = ({ currentUser }) => {
             </NavLink>
           )}
 
-          <NavLink activeClassName="text-muted" className="btn btn-link p-0 ml-3 m-0" exact to="/">
+          <NavLink
+            activeClassName="text-muted link-active"
+            className="btn btn-link p-0 ml-3 m-0"
+            exact
+            to="/"
+          >
             <span className="btn_text">Home</span>
           </NavLink>
         </div>

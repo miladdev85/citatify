@@ -13,6 +13,10 @@
   color: #de6b48;
 }
 
+.link-active {
+  text-decoration: underline;
+}
+
 .btn_text {
   font-size: 1.1rem;
 }
