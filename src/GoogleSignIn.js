@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import { auth, provider } from "./Utils/firebase";
 import google from "./Assets/google.png";
 
+import "./Styles/Google.css";
+
 const GoogleSignIn = ({ history }) => {
   const [error, setError] = useState("");
 

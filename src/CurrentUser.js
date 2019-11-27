@@ -22,7 +22,8 @@ const CurrentUser = ({ displayName, photoURL, email, createdAt }) => {
           </div>
           <Link
             to="/profile"
-            className="btn text-info btn-link align-self-start p-0 m-0 mt-auto edit-btn"
+            className="btn text-info btn-link align-self-start p-0 m-0 mt-auto"
+            style={{ lineHeight: 0.8 }}
           >
             Edit profile
           </Link>

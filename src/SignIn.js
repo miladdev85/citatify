@@ -6,6 +6,8 @@ import GoogleSignIn from "./GoogleSignIn";
 import { validateMail } from "./Utils/utilities";
 import { auth } from "./Utils/firebase";
 
+import "./Styles/SignForm.css";
+
 export class SignIn extends Component {
   state = {
     email: "",

@@ -6,6 +6,8 @@ import { AuthContext } from "./Context/AuthContext";
 import commentIcon from "./Assets/comments.png";
 import likeIcon from "./Assets/like.png";
 
+import "./Styles/Post.css";
+
 const belongsToCurrentUser = (currentUser, postAuthor) => {
   if (!currentUser) return false;
   return currentUser.uid === postAuthor.uid;
@@ -37,9 +39,18 @@ const Post = ({ author, title, id, content, user, createdAt, favorites, comments
             </p>
           </div>
           <div className="ml-auto d-flex">
-            <img src={commentIcon} alt="comments" className="card__title-icon-comment" />
+            <Link to={`/posts/${id}`} style={{ lineHeight: 0 }}>
+              <img src={commentIcon} alt="comments" className="card__title-icon-comment" />
+            </Link>
             <p className="mb-0">{comments}</p>
-            <img src={likeIcon} alt="comments" className="card__title-icon-like" />
+            <img
+              style={{ cursor: canStar && currentUser ? "pointer" : "not-allowed" }}
+              src={likeIcon}
+              alt="like"
+              className="card__title-icon-like"
+              onClick={canStar && currentUser && onAddStar}
+            />
+
             <p className="mb-0">{favorites}</p>
           </div>
         </div>

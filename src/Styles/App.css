@@ -1,0 +1,21 @@
+.customcontainer {
+  max-width: 60rem;
+  margin: 5rem auto;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  min-height: 75vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .customcontainer {
+    max-width: 42rem;
+    margin: 3rem auto;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .customcontainer {
+    margin: 0;
+    min-height: 100vh;
+  }
+}

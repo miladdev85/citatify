@@ -2,6 +2,8 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { signOut } from "./Utils/firebase";
 
+import "./Styles/Navbar.css";
+
 const Navbar = ({ currentUser }) => {
   return (
     <div>
@@ -32,6 +34,7 @@ const Navbar = ({ currentUser }) => {
       </nav>
 
       {/* Gör nedanstående till egen komponent och visa i App ? */}
+
       {!currentUser && (
         <div className="mt-2 pt-2">
           <p>

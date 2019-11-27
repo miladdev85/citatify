@@ -11,6 +11,8 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { AuthContext } from "./Context/AuthContext";
 import { useTransition, animated } from "react-spring";
 
+import "./Styles/App.css";
+
 const App = ({ location }) => {
   const { user } = useContext(AuthContext);
 

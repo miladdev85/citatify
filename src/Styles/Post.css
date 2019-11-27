@@ -1,0 +1,11 @@
+.card__title-icon-comment {
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+}
+
+.card__title-icon-like {
+  width: 22px;
+  height: 22px;
+  margin: 0 6px;
+}
