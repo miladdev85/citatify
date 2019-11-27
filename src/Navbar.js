@@ -37,9 +37,6 @@ const Navbar = ({ currentUser }) => {
           </NavLink>
         </div>
       </nav>
-
-      {/* Gör nedanstående till egen komponent och visa i App ? */}
-
       {!currentUser && (
         <div className="mt-2 pt-2">
           <p>

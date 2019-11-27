@@ -13,10 +13,13 @@ const belongsToCurrentUser = (currentUser, postAuthor) => {
   return currentUser.uid === postAuthor.uid;
 };
 
+// postPage props is used for weither or not display a link to Details
+
 const Post = ({ author, title, id, content, user, createdAt, favorites, comments, postPage }) => {
   const [canStar, setCanStar] = useState(true);
   const { user: currentUser } = useContext(AuthContext);
 
+  // A reference to the post so we can easily use it when needed.
   const postRef = db.doc(`posts/${id}`);
 
   const onRemove = () => postRef.delete();

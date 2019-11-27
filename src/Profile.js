@@ -23,8 +23,7 @@ const Profile = () => {
       setImage(file);
     };
 
-    // Checking so that file is present and to prevent crashing in case there is no picture (if we press cancel on file select)
-
+    // Checking so that file is present and to prevent crashing in case there is no picture (which would happen if we press cancel on file select)
     if (file) {
       imageReader.readAsDataURL(file);
     }
@@ -37,11 +36,10 @@ const Profile = () => {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    // Use helper function to get reference to the user. After we get the ref, update the user
+    // Use helper function to get reference to the user.
     const userRef = await getUserReference(getUid());
 
     // Update display name and set states
-
     if (displayName) {
       try {
         setLoading(true);
@@ -53,9 +51,10 @@ const Profile = () => {
       }
     }
 
-    // Add image and set states. Using storage functions from firebase
+    // Add image and set states. Using storage functions from Firebase
     // Create  /user-profiles/uid folder in firestore and upload the image
-    // getDownloadURL returns a promise with url to the uploaded image which we update the user profile with
+    // getDownloadURL method returns a promise with url to the uploaded image which we update the user profile with and set the photoURL value to
+    // This will ensure that the user will get the same image on next sign in
 
     if (image) {
       setLoading(true);
