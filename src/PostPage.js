@@ -15,7 +15,8 @@ const PostPage = ({ match }) => {
   // We will use the id value coming from React Router to reference the specific post in the posts collection.
   const postId = match.params.id;
 
-  // Subscribe to any changes using the onSnapshot method on posts and comments. Dependency is set on the postId - each time that changes, we run this useEffect.
+  // Subscribe to any changes using the onSnapshot method on posts and comments. Dependency is set on the postId - each time we mount this component with different postId it will
+  // re-run this effect. Similar to componentDidMount class lifecycle
   useEffect(() => {
     const unsubscribeFromFirestore = db.doc(`posts/${postId}`).onSnapshot(snapshot => {
       const post = collectIdsAndDocs(snapshot);
@@ -38,13 +39,6 @@ const PostPage = ({ match }) => {
     };
   }, [postId]);
 
-  // Increase the comment count. Will be invoked after the comment is created from createComment function.
-  const increaseCommentCount = () => {
-    db.doc(`posts/${postId}`).update({
-      comments: post.comments + 1
-    });
-  };
-
   // Create the comment and invoke increaseCommentCount function.
   const createComment = async comment => {
     try {
@@ -60,6 +54,13 @@ const PostPage = ({ match }) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // Increase the comment count. Will be invoked after the comment is created from createComment function.
+  const increaseCommentCount = () => {
+    db.doc(`posts/${postId}`).update({
+      comments: post.comments + 1
+    });
   };
 
   return (
