@@ -19,6 +19,7 @@ export class SignIn extends Component {
     loading: false
   };
 
+  // Validate email field. Resetting authError state so we don't display the error message when user tries to type again.
   onChange = e => {
     let errorMessage = "";
     const { name, value } = e.target;
@@ -38,6 +39,7 @@ export class SignIn extends Component {
     event.preventDefault();
 
     // Set state first so we can use the loading state and display it in the UI.
+    // If authentication goes well, send user to root page else set authError state.
 
     this.setState({ loading: true }, async () => {
       const { email, password } = this.state;
@@ -56,6 +58,8 @@ export class SignIn extends Component {
 
   render() {
     const { email, password, errorMessage, authError, loading } = this.state;
+
+    // Use conditional to set the status of the submit button
     const isEnabled = email.length > 0 && password.length > 0 && errorMessage.email < 1;
 
     return (

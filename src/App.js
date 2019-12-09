@@ -17,6 +17,7 @@ const App = ({ location }) => {
   // Hook in to AuthContext to get information weither there is an authenticated user
   const { user } = useContext(AuthContext);
 
+  // Animations on router view changes
   const transitions = useTransition(location, location => location.pathname, {
     from: { opacity: 0, transform: "translate(10%, 0)", display: "none" },
     enter: { opacity: 1, transform: "translate(0%, 0)", display: "block" },

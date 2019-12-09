@@ -4,6 +4,8 @@ import { signOut } from "./Utils/firebase";
 
 import "./Styles/Navbar.css";
 
+// signOut functionality from firebase auth.
+
 const Navbar = ({ currentUser }) => {
   return (
     <div>

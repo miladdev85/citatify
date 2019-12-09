@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db, auth } from "./Utils/firebase";
 
-const AddPost = ({ user }) => {
+const AddPost = () => {
   const [post, setPost] = useState({ author: "", title: "", content: "" });
 
   // Spred existing state so we don't overwrite existing because Hooks don't merge existing state.
@@ -11,7 +11,8 @@ const AddPost = ({ user }) => {
   };
 
   // Get authenticated user and add properties to the object before posting to Firestore.
-  // Submit button is disabled if quote content is less than 10 characters and if author is empty. That is why we don't validate content or author here.
+  // Submit button is disabled if quote content is less than 10 characters and if author is empty.
+  // That is why we don't validate content or author here.
   const handleSubmit = event => {
     event.preventDefault();
     const { author, title, content } = post;
@@ -31,7 +32,8 @@ const AddPost = ({ user }) => {
       createdAt: new Date()
     };
 
-    // Get "posts" collection from Firestore and add the new post object in to that collection.
+    // Get posts collection from Firestore and add the new post object in to that collection.
+    // Empty input fields
     db.collection("posts").add(newPost);
     setPost({ author: "", title: "", content: "" });
   };

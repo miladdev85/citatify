@@ -13,17 +13,20 @@ const Profile = () => {
     return auth.currentUser.uid;
   };
 
+  // Handle image chosing. Using the web api FileReader
   const handleFileChange = event => {
     const file = event.target.files[0];
 
     const imageReader = new FileReader();
 
+    // When file read has completed
     imageReader.onloadend = () => {
       setImageUrl(imageReader.result);
       setImage(file);
     };
 
     // Checking so that file is present and to prevent crashing in case there is no picture (which would happen if we press cancel on file select)
+    // readAsDataURL is used to read the contents of the specified file
     if (file) {
       imageReader.readAsDataURL(file);
     }

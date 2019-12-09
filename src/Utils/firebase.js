@@ -32,7 +32,7 @@ export const createUserProfileDocument = async (user, additionalData) => {
   // Get the document from that location
   const userSnapshot = await userRef.get();
 
-  // If document does not exist, we set the values
+  // If document does not exist, we set the values with the set method on userRef
   if (!userSnapshot.exists) {
     const { displayName, email, photoURL } = user;
     const createdAt = new Date();

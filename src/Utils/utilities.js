@@ -1,5 +1,6 @@
 import moment from "moment";
 
+// Set id so we can use the id when rendering. For example as key value.
 export const collectIdsAndDocs = doc => {
   return { id: doc.id, ...doc.data() };
 };
