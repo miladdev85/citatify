@@ -16,7 +16,7 @@ const PostPage = ({ match }) => {
   const postId = match.params.id;
 
   // Subscribe to any changes using the onSnapshot method on posts and comments. Dependency is set on the postId - each time we mount this component with different postId it will
-  // re-run this effect. Similar to componentDidMount class lifecycle
+  // re-run this effect. Similar to componentDidMount lifecycle in class components
   useEffect(() => {
     const unsubscribeFromFirestore = db.doc(`posts/${postId}`).onSnapshot(snapshot => {
       const post = collectIdsAndDocs(snapshot);
@@ -63,10 +63,28 @@ const PostPage = ({ match }) => {
     });
   };
 
+  // Using postId to reference the post. Then we get the specific comment by taking in the id as parameter to the function.
+  // Update comment content with new content that is the second parameter to this function.
+
+  const editComment = async (id, content) => {
+    try {
+      await db
+        .doc(`posts/${postId}`)
+        .collection("comments")
+        .doc(id)
+        .update({
+          content
+        });
+      return "success";
+    } catch (error) {
+      return "failed";
+    }
+  };
+
   return (
     <section>
       {post && <Post postPage={true} {...post} />}
-      <Comments comments={comments} user={user} onCreate={createComment} />
+      <Comments comments={comments} user={user} onCreate={createComment} onEdit={editComment} />
     </section>
   );
 };

@@ -31,7 +31,6 @@ const App = ({ location }) => {
       {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props}>
           <Switch location={item}>
-            {/* Posts component will hook in to PostContext and AuthContext and show function for adding post if user is authenticated */}
             <Route exact path="/" component={Posts} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/signin" component={SignIn} />

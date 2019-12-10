@@ -18,3 +18,8 @@ export const convertFirestoreDate = timestamp => {
 };
 
 export const validateMail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+export const belongsToCurrentUser = (currentUser, postAuthor) => {
+  if (!currentUser) return false;
+  return currentUser.uid === postAuthor.uid;
+};

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { db, auth } from "./Utils/firebase";
+import Input from "./Components/Input";
+import Button from "./Components/Button";
 
 const AddPost = () => {
   const [post, setPost] = useState({ author: "", title: "", content: "" });
@@ -42,54 +44,51 @@ const AddPost = () => {
     <form onSubmit={handleSubmit}>
       <div className="row">
         <div className="col">
-          <div className="md-form mt-0">
-            <input
-              type="text"
-              name="author"
-              required
-              placeholder="Author"
-              value={post.author}
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
+          <Input
+            inputType="input"
+            type="text"
+            name="author"
+            containerClass="mt-0"
+            required
+            placeholder="Author"
+            value={post.author}
+            onChange={handleChange}
+          />
         </div>
-
         <div className="col">
-          <div className="md-form mt-0">
-            <input
-              type="text"
-              name="title"
-              className="form-control"
-              placeholder="Title"
-              value={post.title}
-              onChange={handleChange}
-            />
-          </div>
+          <Input
+            containerClass="mt-0"
+            inputType="input"
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={post.title}
+            onChange={handleChange}
+          />
         </div>
       </div>
-      <div className="md-form md-outline">
-        <textarea
-          value={post.content}
-          onChange={handleChange}
-          required
-          name="content"
-          className="md-textarea form-control rounded-0"
-          rows="3"
-          placeholder="Quote"
-        ></textarea>
+      <Input
+        containerClass="md-outline"
+        inputType="textarea"
+        name="content"
+        required
+        inputClass="rounded-0"
+        rows="3"
+        placeholder="Quote"
+        value={post.content}
+        onChange={handleChange}
+      >
         {post.content.length < 10 && (
           <small className="form-text text-muted">Quote must contain atleast 10 characters</small>
         )}
-      </div>
+      </Input>
       <div className="d-flex justify-content-end mb-5">
-        <button
-          className="btn btn-mdb-color mx-0 px-3 py-2"
-          type="submit"
+        <Button
+          className="btn-mdb-color mx-0 px-3 py-2"
           disabled={post.content.length < 10 || !post.author}
         >
           Submit
-        </button>
+        </Button>
       </div>
     </form>
   );

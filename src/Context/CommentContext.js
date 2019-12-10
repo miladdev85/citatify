@@ -8,6 +8,7 @@ export const CommentProvider = ({ children }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
+    console.log("here");
     const unsubscribeFromComments = db
       .doc(`posts/${postId}`)
       .collection("comments")

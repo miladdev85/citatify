@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { convertFirestoreDate } from "./Utils/utilities";
+import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
 import { Link } from "react-router-dom";
 import { db } from "./Utils/firebase";
 import { AuthContext } from "./Context/AuthContext";
@@ -7,11 +7,6 @@ import commentIcon from "./Assets/comments.png";
 import likeIcon from "./Assets/like.png";
 
 import "./Styles/Post.css";
-
-const belongsToCurrentUser = (currentUser, postAuthor) => {
-  if (!currentUser) return false;
-  return currentUser.uid === postAuthor.uid;
-};
 
 // If component is rendered in PostPage component, we use the postPage props and don't render link to Details
 
