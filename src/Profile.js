@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth, getUserReference, storage } from "./Utils/firebase";
 import SubmitError from "./SubmitError";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Profile = () => {
   const [displayName, setDisplayName] = useState("");
@@ -113,13 +114,7 @@ const Profile = () => {
           disabled={(!displayName && !image) || loading}
           type="submit"
         >
-          {loading && (
-            <span
-              className="spinner-border spinner-border-sm mr-2"
-              role="status"
-              aria-hidden="true"
-            ></span>
-          )}
+          {loading && <LoadingSpinner className="mr-2" />}
           {loading ? "Loading" : "Update"}
         </button>
       </form>

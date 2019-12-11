@@ -7,13 +7,16 @@ import EditComment from "./EditComment";
 const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }) => {
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(content);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = event => setInput(event.target.value);
 
   const handleSubmit = async event => {
     event.preventDefault();
     try {
+      setLoading(true);
       await onEdit(id, input);
+      setLoading(false);
       setEditMode(false);
     } catch (error) {
       console.error(error);
@@ -43,6 +46,7 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }
             </p>
             {editMode ? (
               <EditComment
+                loading={loading}
                 value={input}
                 onInputChange={handleInputChange}
                 onSubmit={handleSubmit}
