@@ -6,6 +6,7 @@ import commentIcon from "./Assets/comments.png";
 import likeIcon from "./Assets/like.png";
 
 import "./Styles/Post.css";
+import Button from "./Components/Button";
 
 // If component is rendered in PostPage component, we use the postPage props and don't render link to Details
 
@@ -69,13 +70,13 @@ const Post = ({
           </blockquote>
         </div>
         <div className="card-footer text-muted text-center mt-1 d-flex justify-content-end p-1 px-2">
-          <button
+          <Button
             onClick={onAddStar}
             disabled={!canStar || !currentUser}
-            className="btn btn-link text-dark p-1"
+            className="btn-link text-dark p-1"
           >
             Like
-          </button>
+          </Button>
           {!postPage && (
             <Link to={`/posts/${id}`} className="btn btn-link text-dark p-1">
               Details
@@ -83,9 +84,9 @@ const Post = ({
           )}
           {belongsToCurrentUser(currentUser, user) && (
             <>
-              <button onClick={onRemove} className="btn btn-link text-danger p-1">
+              <Button onClick={onRemove} className="btn-link text-danger p-1">
                 Remove
-              </button>
+              </Button>
             </>
           )}
         </div>

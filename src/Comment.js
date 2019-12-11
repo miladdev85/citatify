@@ -4,17 +4,23 @@ import noProfileImage from "./Assets/noprofile.jpg";
 import Button from "./Components/Button";
 import EditComment from "./EditComment";
 
-const Comment = ({ content, id, currentUser, user, createdAt, onEdit }) => {
+const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }) => {
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(content);
 
   const handleInputChange = event => setInput(event.target.value);
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    setEditMode(false);
-    onEdit(id, input);
+    try {
+      await onEdit(id, input);
+      setEditMode(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const handleRemove = () => onRemove(id);
 
   const toggleEditMode = () => {
     setEditMode(prevMode => !prevMode);
@@ -46,9 +52,17 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit }) => {
               <p className="font-weight-bolder py-2 mb-1">{content}</p>
             )}
             {belongsToCurrentUser(currentUser, user) && !editMode && (
-              <Button className="btn-sm btn-link p-0 py-2 ml-0" onClick={toggleEditMode}>
-                Edit
-              </Button>
+              <div>
+                <Button className="btn-sm btn-link p-0 py-2 ml-0" onClick={toggleEditMode}>
+                  Edit
+                </Button>
+                <Button
+                  className="btn-sm btn-link p-0 py-2 ml-1 text-danger"
+                  onClick={handleRemove}
+                >
+                  Remove
+                </Button>
+              </div>
             )}
           </div>
         </div>

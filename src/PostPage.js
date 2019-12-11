@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import Post from "./Post";
 import Comments from "./Comments";
 import { withRouter } from "react-router-dom";
@@ -15,16 +15,21 @@ const PostPage = ({ match }) => {
   // We will use the id value coming from React Router to reference the specific post in the posts collection.
   const postId = match.params.id;
 
+  // useCallback to ensure that the function does not change on every render unless postId changes. We do this because we use it as a dependency in the useEffect.
+  // docRef is reference to the document. We use this everywhere we want to get the document reference.
+  const docRef = useCallback(() => {
+    return db.doc(`posts/${postId}`);
+  }, [postId]);
+
   // Subscribe to any changes using the onSnapshot method on posts and comments. Dependency is set on the postId - each time we mount this component with different postId it will
   // re-run this effect. Similar to componentDidMount lifecycle in class components
   useEffect(() => {
-    const unsubscribeFromFirestore = db.doc(`posts/${postId}`).onSnapshot(snapshot => {
+    const unsubscribeFromFirestore = docRef().onSnapshot(snapshot => {
       const post = collectIdsAndDocs(snapshot);
       setPost(post);
     });
 
-    const unsubscribeFromComments = db
-      .doc(`posts/${postId}`)
+    const unsubscribeFromComments = docRef()
       .collection("comments")
       .orderBy("createdAt", "desc")
       .onSnapshot(snapshot => {
@@ -37,12 +42,12 @@ const PostPage = ({ match }) => {
       unsubscribeFromFirestore();
       unsubscribeFromComments();
     };
-  }, [postId]);
+  }, [docRef]);
 
-  // Create the comment and invoke increaseCommentCount function.
+  // Create the comment and invoke increaseCommentCount function. Getting the user from AuthContext.
   const createComment = async comment => {
     try {
-      db.doc(`posts/${postId}`)
+      docRef()
         .collection("comments")
         .add({
           content: comment,
@@ -58,8 +63,14 @@ const PostPage = ({ match }) => {
 
   // Increase the comment count. Will be invoked after the comment is created from createComment function.
   const increaseCommentCount = () => {
-    db.doc(`posts/${postId}`).update({
+    docRef().update({
       comments: post.comments + 1
+    });
+  };
+  // Decrease the comment count. Will be invoked after the comment is removed from removeComment function.
+  const decreaseCommentCount = () => {
+    docRef().update({
+      comments: post.comments - 1
     });
   };
 
@@ -67,24 +78,45 @@ const PostPage = ({ match }) => {
   // Update comment content with new content that is the second parameter to this function.
 
   const editComment = async (id, content) => {
+    const commentRef = docRef()
+      .collection("comments")
+      .doc(id);
+
+    const comment = await commentRef.get();
+
+    if (comment.exists) {
+      commentRef.update({
+        content
+      });
+    } else {
+      throw new Error("Comment does not exist!");
+    }
+  };
+
+  const removeComment = async id => {
     try {
-      await db
-        .doc(`posts/${postId}`)
+      await docRef()
         .collection("comments")
         .doc(id)
-        .update({
-          content
-        });
-      return "success";
+        .delete();
+      decreaseCommentCount();
     } catch (error) {
-      return "failed";
+      console.error(error);
     }
   };
 
   return (
     <section>
       {post && <Post postPage={true} {...post} currentUser={user} />}
-      <Comments comments={comments} user={user} onCreate={createComment} onEdit={editComment} />
+      <Comments
+        postId={postId}
+        onIncrease={increaseCommentCount}
+        comments={comments}
+        user={user}
+        onCreate={createComment}
+        onRemove={removeComment}
+        onEdit={editComment}
+      />
     </section>
   );
 };
