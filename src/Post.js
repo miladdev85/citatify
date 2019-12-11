@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
 import { Link } from "react-router-dom";
 import { db } from "./Utils/firebase";
-import { AuthContext } from "./Context/AuthContext";
 import commentIcon from "./Assets/comments.png";
 import likeIcon from "./Assets/like.png";
 
@@ -10,9 +9,19 @@ import "./Styles/Post.css";
 
 // If component is rendered in PostPage component, we use the postPage props and don't render link to Details
 
-const Post = ({ author, title, id, content, user, createdAt, favorites, comments, postPage }) => {
+const Post = ({
+  author,
+  title,
+  id,
+  content,
+  user,
+  currentUser,
+  createdAt,
+  favorites,
+  comments,
+  postPage
+}) => {
   const [canStar, setCanStar] = useState(true);
-  const { user: currentUser } = useContext(AuthContext);
 
   // A reference to the post so we can easily use it in functions when needed further down.
   const postRef = db.doc(`posts/${id}`);
@@ -48,7 +57,6 @@ const Post = ({ author, title, id, content, user, createdAt, favorites, comments
               className="card__title-icon-like"
               onClick={canStar && currentUser && onAddStar}
             />
-
             <p className="mb-0">{favorites}</p>
           </div>
         </div>

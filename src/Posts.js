@@ -15,7 +15,7 @@ const Posts = () => {
     <>
       {user && <AddPost />}
       {posts.map(post => (
-        <Post {...post} key={post.id} />
+        <Post {...post} key={post.id} currentUser={user} />
       ))}
     </>
   );

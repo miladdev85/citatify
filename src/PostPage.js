@@ -83,7 +83,7 @@ const PostPage = ({ match }) => {
 
   return (
     <section>
-      {post && <Post postPage={true} {...post} />}
+      {post && <Post postPage={true} {...post} currentUser={user} />}
       <Comments comments={comments} user={user} onCreate={createComment} onEdit={editComment} />
     </section>
   );
