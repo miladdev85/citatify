@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import GoogleSignIn from "./GoogleSignIn";
-import InputError from "./InputError";
+import ErrorMsg from "./ErrorMsg";
 import SubmitError from "./SubmitError";
 import { withRouter } from "react-router-dom";
 import { validateMail } from "./Utils/utilities";
@@ -132,7 +132,7 @@ export class SignUp extends Component {
           required={true}
         />
 
-        {!formValid && <InputError message={errors.displayName} />}
+        {!formValid && <ErrorMsg message={errors.displayName} />}
 
         <input
           type="email"
@@ -144,7 +144,7 @@ export class SignUp extends Component {
           required={true}
         />
 
-        {!formValid && <InputError message={errors.email} />}
+        {!formValid && <ErrorMsg message={errors.email} />}
 
         <input
           type="password"
@@ -156,7 +156,7 @@ export class SignUp extends Component {
           value={password}
         />
 
-        {!formValid && <InputError message={errors.password} />}
+        {!formValid && <ErrorMsg message={errors.password} />}
 
         <input
           onChange={this.onChange}
@@ -169,7 +169,7 @@ export class SignUp extends Component {
         />
 
         {!formValid && errors.passwordMatch && confirmPassword && (
-          <InputError message={errors.passwordMatch} />
+          <ErrorMsg message={errors.passwordMatch} />
         )}
 
         {createError && <SubmitError message={createError} />}

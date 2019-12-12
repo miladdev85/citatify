@@ -19,3 +19,7 @@
     min-height: 100vh;
   }
 }
+
+.ram {
+  border: 1px solid red;
+}

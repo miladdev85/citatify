@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import InputError from "./InputError";
+import ErrorMsg from "./ErrorMsg";
 import SubmitError from "./SubmitError";
 import GoogleSignIn from "./GoogleSignIn";
 import { validateMail } from "./Utils/utilities";
@@ -74,7 +74,7 @@ export class SignIn extends Component {
           value={email}
           required={true}
         />
-        {errorMessage.email && <InputError message={errorMessage.email} />}
+        {errorMessage.email && <ErrorMsg message={errorMessage.email} />}
         <input
           type="password"
           name="password"

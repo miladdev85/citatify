@@ -47,7 +47,7 @@ const PostPage = ({ match }) => {
   // Create the comment and invoke increaseCommentCount function. Getting the user from AuthContext.
   const createComment = async comment => {
     try {
-      docRef()
+      await docRef()
         .collection("comments")
         .add({
           content: comment,
@@ -78,18 +78,15 @@ const PostPage = ({ match }) => {
   // Update comment content with new content that is the second parameter to this function.
 
   const editComment = async (id, content) => {
-    const commentRef = docRef()
-      .collection("comments")
-      .doc(id);
-
-    const comment = await commentRef.get();
-
-    if (comment.exists) {
-      commentRef.update({
-        content
-      });
-    } else {
-      throw new Error("Comment does not exist!");
+    try {
+      await docRef()
+        .collection("comments")
+        .doc(id)
+        .update({
+          content
+        });
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
@@ -101,7 +98,7 @@ const PostPage = ({ match }) => {
         .delete();
       decreaseCommentCount();
     } catch (error) {
-      console.error(error);
+      throw new Error(error);
     }
   };
 

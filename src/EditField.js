@@ -3,9 +3,9 @@ import Input from "./Components/Input";
 import Button from "./Components/Button";
 import LoadingSpinner from "./LoadingSpinner";
 
-const EditComment = ({ loading, value, onInputChange, onCancel, onSubmit }) => {
+const EditField = ({ loading, value, onInputChange, onCancel, onSubmit, children }) => {
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="mb-3">
       <Input style={{ width: "100%" }} value={value} onChange={onInputChange} autoFocus />
       <Button className="btn-sm btn-mdb-color px-3 py-2 ml-0" type="submit">
         {loading && <LoadingSpinner className="mr-2 m-0 p-0" />}
@@ -19,8 +19,9 @@ const EditComment = ({ loading, value, onInputChange, onCancel, onSubmit }) => {
       >
         Cancel
       </Button>
+      {children}
     </form>
   );
 };
 
-export default EditComment;
+export default EditField;

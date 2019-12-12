@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
 import noProfileImage from "./Assets/noprofile.jpg";
 import Button from "./Components/Button";
-import EditComment from "./EditComment";
+import EditField from "./EditField";
 import ModalPage from "./ModalPage";
+import ErrorMsg from "./ErrorMsg";
 
 const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }) => {
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(content);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState("");
 
   const toggleModal = () => setShowModal(!showModal);
 
@@ -18,18 +20,30 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }
   const handleSubmit = async event => {
     event.preventDefault();
     try {
+      setError("");
       setLoading(true);
       await onEdit(id, input);
       setLoading(false);
       setEditMode(false);
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      setError(error.message);
     }
   };
 
-  const handleRemove = () => onRemove(id);
+  const handleRemove = async () => {
+    try {
+      await onRemove(id);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   const toggleEditMode = () => {
+    setError("");
+    if (input !== content) {
+      setInput(content);
+    }
     setEditMode(prevMode => !prevMode);
   };
 
@@ -49,13 +63,15 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }
               {convertFirestoreDate(createdAt)} by {user.displayName}
             </p>
             {editMode ? (
-              <EditComment
+              <EditField
                 loading={loading}
                 value={input}
                 onInputChange={handleInputChange}
                 onSubmit={handleSubmit}
                 onCancel={toggleEditMode}
-              />
+              >
+                {error && <ErrorMsg message={error} />}
+              </EditField>
             ) : (
               <p className="font-weight-bolder py-2 mb-1">{content}</p>
             )}
@@ -80,6 +96,7 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }
                     Are you sure you want to delete this comment?
                   </ModalPage>
                 )}
+                {error && <ErrorMsg message={error} />}
               </div>
             )}
           </div>

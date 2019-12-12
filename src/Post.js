@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import EditField from "./EditField";
+import ErrorMsg from "./ErrorMsg";
 import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
 import { Link } from "react-router-dom";
 import { db } from "./Utils/firebase";
@@ -23,9 +25,13 @@ const Post = ({
   postPage
 }) => {
   const [canStar, setCanStar] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+  const [input, setInput] = useState(content);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // A reference to the post so we can easily use it in functions when needed further down.
-  const postRef = db.doc(`posts/${id}`);
+  const postRef = db.doc(`posts/${"98756"}`);
 
   const onRemove = () => postRef.delete();
 
@@ -34,8 +40,33 @@ const Post = ({
     setCanStar(false);
   };
 
+  const toggleEditMode = () => {
+    setError("");
+    if (input !== content) {
+      setInput(content);
+    }
+    setEditMode(prevMode => !prevMode);
+  };
+
+  const handleInputChange = event => setInput(event.target.value);
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      await postRef.update({
+        content: input
+      });
+      setLoading(false);
+      setEditMode(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
+
   return (
-    <article className="mt-5 ">
+    <article className="mt-5">
       <div className="card rounded-0">
         <div className="card-header d-flex align-items-center flex-wrap">
           <div>
@@ -63,7 +94,19 @@ const Post = ({
         </div>
         <div className="card-body">
           <blockquote className="blockquote mb-0">
-            <p>{content}</p>
+            {editMode ? (
+              <EditField
+                loading={loading}
+                value={input}
+                onInputChange={handleInputChange}
+                onSubmit={handleSubmit}
+                onCancel={toggleEditMode}
+              >
+                {error && <ErrorMsg message={error} />}
+              </EditField>
+            ) : (
+              <p>{content}</p>
+            )}
             <footer className="blockquote-footer">
               <cite title={author}>{author}</cite>
             </footer>
@@ -84,6 +127,9 @@ const Post = ({
           )}
           {belongsToCurrentUser(currentUser, user) && (
             <>
+              <Button onClick={toggleEditMode} className="btn-link text-info p-1">
+                Edit
+              </Button>
               <Button onClick={onRemove} className="btn-link text-danger p-1">
                 Remove
               </Button>
