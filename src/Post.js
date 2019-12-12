@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import EditField from "./EditField";
 import ErrorMsg from "./ErrorMsg";
+import ModalPage from "./ModalPage";
 import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
 import { Link } from "react-router-dom";
 import { db } from "./Utils/firebase";
 import commentIcon from "./Assets/comments.png";
 import likeIcon from "./Assets/like.png";
+import { withRouter } from "react-router-dom";
 
 import "./Styles/Post.css";
 import Button from "./Components/Button";
@@ -22,23 +24,30 @@ const Post = ({
   createdAt,
   favorites,
   comments,
-  postPage
+  postPage,
+  history
 }) => {
   const [canStar, setCanStar] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(content);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   // A reference to the post so we can easily use it in functions when needed further down.
-  const postRef = db.doc(`posts/${"98756"}`);
+  const postRef = db.doc(`posts/${id}`);
 
-  const onRemove = () => postRef.delete();
+  const onRemove = () => {
+    postRef.delete();
+    history.push("/");
+  };
 
   const onAddStar = () => {
     postRef.update({ favorites: favorites + 1 });
     setCanStar(false);
   };
+
+  const toggleModal = () => setShowModal(!showModal);
 
   const toggleEditMode = () => {
     setError("");
@@ -126,14 +135,27 @@ const Post = ({
             </Link>
           )}
           {belongsToCurrentUser(currentUser, user) && (
-            <>
+            <div className="text-left">
               <Button onClick={toggleEditMode} className="btn-link text-info p-1">
                 Edit
               </Button>
-              <Button onClick={onRemove} className="btn-link text-danger p-1">
+              <Button onClick={toggleModal} className="btn-link text-danger p-1">
                 Remove
               </Button>
-            </>
+              {showModal && (
+                <ModalPage
+                  title="Delete comment"
+                  confirm="Yes"
+                  cancel="No"
+                  show={showModal}
+                  toggle={toggleModal}
+                  buttonText="Remove"
+                  submit={onRemove}
+                >
+                  Are you sure you want to delete this post?
+                </ModalPage>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -141,4 +163,4 @@ const Post = ({
   );
 };
 
-export default Post;
+export default withRouter(Post);
