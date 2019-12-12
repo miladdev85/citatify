@@ -3,11 +3,15 @@ import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
 import noProfileImage from "./Assets/noprofile.jpg";
 import Button from "./Components/Button";
 import EditComment from "./EditComment";
+import ModalPage from "./ModalPage";
 
 const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }) => {
   const [editMode, setEditMode] = useState(false);
   const [input, setInput] = useState(content);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => setShowModal(!showModal);
 
   const handleInputChange = event => setInput(event.target.value);
 
@@ -60,12 +64,22 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }
                 <Button className="btn-sm btn-link p-0 py-2 ml-0" onClick={toggleEditMode}>
                   Edit
                 </Button>
-                <Button
-                  className="btn-sm btn-link p-0 py-2 ml-1 text-danger"
-                  onClick={handleRemove}
-                >
+                <Button className="btn-sm btn-link p-0 py-2 ml-1 text-danger" onClick={toggleModal}>
                   Remove
                 </Button>
+                {showModal && (
+                  <ModalPage
+                    title="Delete comment"
+                    confirm="Yes"
+                    cancel="No"
+                    show={showModal}
+                    toggle={toggleModal}
+                    buttonText="Remove"
+                    submit={handleRemove}
+                  >
+                    Are you sure you want to delete this comment?
+                  </ModalPage>
+                )}
               </div>
             )}
           </div>
