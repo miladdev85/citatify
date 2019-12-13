@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { convertFirestoreDate } from "./Utils/utilities";
-import noProfileImage from "./Assets/noprofile.jpg";
+import { convertFirestoreDate } from "../Utils/utilities";
+import noProfileImage from "../Assets/noprofile.jpg";
 
 const CurrentUser = ({ displayName, photoURL, email, createdAt }) => {
   return (

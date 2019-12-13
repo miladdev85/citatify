@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import EditField from "./EditField";
-import ErrorMsg from "./ErrorMsg";
-import ModalPage from "./ModalPage";
-import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
+import EditField from "./Shared/EditField";
+import ErrorMsg from "./Shared/ErrorMsg";
+import ModalPage from "./Shared/ModalPage";
+import { convertFirestoreDate, belongsToCurrentUser } from "../Utils/utilities";
 import { Link } from "react-router-dom";
-import { db } from "./Utils/firebase";
-import commentIcon from "./Assets/comments.png";
-import likeIcon from "./Assets/like.png";
+import { db } from "../Utils/firebase";
+import commentIcon from "../Assets/comments.png";
+import likeIcon from "../Assets/like.png";
 import { withRouter } from "react-router-dom";
 
-import "./Styles/Post.css";
-import Button from "./Components/Button";
+import "../Styles/Post.css";
+import Button from "./Shared/Button";
 
 // If component is rendered in PostPage component, we use the postPage props and don't render link to Details
 

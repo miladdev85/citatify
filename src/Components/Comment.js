@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
-import noProfileImage from "./Assets/noprofile.jpg";
-import Button from "./Components/Button";
-import EditField from "./EditField";
-import ModalPage from "./ModalPage";
-import ErrorMsg from "./ErrorMsg";
+import { convertFirestoreDate, belongsToCurrentUser } from "../Utils/utilities";
+import noProfileImage from "../Assets/noprofile.jpg";
+import Button from "./Shared/Button";
+import EditField from "./Shared/EditField";
+import ModalPage from "./Shared/ModalPage";
+import ErrorMsg from "./Shared/ErrorMsg";
 
 const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }) => {
   const [editMode, setEditMode] = useState(false);

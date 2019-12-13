@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { db, auth } from "./Utils/firebase";
-import Input from "./Components/Input";
-import Button from "./Components/Button";
+import { db, auth } from "../Utils/firebase";
+import Input from "./Shared/Input";
+import Button from "./Shared/Button";
 
 const AddPost = () => {
   const [post, setPost] = useState({ author: "", title: "", content: "" });

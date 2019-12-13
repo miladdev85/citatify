@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import App from "./Components/App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { PostProvider } from "./Context/PostContext";
 import { AuthProvider } from "./Context/AuthContext";

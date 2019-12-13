@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "./Components/Input";
-import Button from "./Components/Button";
+import Input from "./Input";
+import Button from "./Button";
 import LoadingSpinner from "./LoadingSpinner";
 
 const EditField = ({ loading, value, onInputChange, onCancel, onSubmit, children }) => {

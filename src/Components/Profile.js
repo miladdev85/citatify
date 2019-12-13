@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { auth, getUserReference, storage } from "./Utils/firebase";
-import SubmitError from "./SubmitError";
-import LoadingSpinner from "./LoadingSpinner";
+import { auth, getUserReference, storage } from "../Utils/firebase";
+import SubmitError from "./Shared/SubmitError";
+import LoadingSpinner from "./Shared/LoadingSpinner";
 
 const Profile = () => {
   const [displayName, setDisplayName] = useState("");

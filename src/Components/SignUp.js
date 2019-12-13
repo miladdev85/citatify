@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import GoogleSignIn from "./GoogleSignIn";
-import ErrorMsg from "./ErrorMsg";
-import SubmitError from "./SubmitError";
+import ErrorMsg from "./Shared/ErrorMsg";
+import SubmitError from "./Shared/SubmitError";
 import { withRouter } from "react-router-dom";
-import { validateMail } from "./Utils/utilities";
-import { auth, createUserProfileDocument } from "./Utils/firebase";
+import { validateMail } from "../Utils/utilities";
+import { auth, createUserProfileDocument } from "../Utils/firebase";
 
 export class SignUp extends Component {
   state = {

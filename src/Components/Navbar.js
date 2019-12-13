@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { signOut } from "./Utils/firebase";
+import { signOut } from "../Utils/firebase";
 
-import "./Styles/Navbar.css";
+import "../Styles/Navbar.css";
 
 // signOut functionality from firebase auth.
 

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import ErrorMsg from "./ErrorMsg";
-import SubmitError from "./SubmitError";
+import ErrorMsg from "./Shared/ErrorMsg";
+import SubmitError from "./Shared/SubmitError";
 import GoogleSignIn from "./GoogleSignIn";
-import { validateMail } from "./Utils/utilities";
-import { auth } from "./Utils/firebase";
+import { validateMail } from "../Utils/utilities";
+import { auth } from "../Utils/firebase";
 
-import "./Styles/SignForm.css";
+import "../Styles/SignForm.css";
 
 export class SignIn extends Component {
   state = {

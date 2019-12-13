@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext, useCallback } from "react";
 import Post from "./Post";
 import Comments from "./Comments";
 import { withRouter } from "react-router-dom";
-import { db } from "./Utils/firebase";
-import { collectIdsAndDocs } from "./Utils/utilities";
-import { AuthContext } from "./Context/AuthContext";
+import { db } from "../Utils/firebase";
+import { collectIdsAndDocs } from "../Utils/utilities";
+import { AuthContext } from "../Context/AuthContext";
 
 const PostPage = ({ match }) => {
   const [post, setPost] = useState(null);

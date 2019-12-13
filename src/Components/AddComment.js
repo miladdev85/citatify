@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Input from "./Components/Input";
-import Button from "./Components/Button";
-import ErrorMsg from "./ErrorMsg";
+import Input from "./Shared/Input";
+import Button from "./Shared/Button";
+import ErrorMsg from "./Shared/ErrorMsg";
 
 const AddComment = ({ onCreate }) => {
   const [content, setContent] = useState("");
