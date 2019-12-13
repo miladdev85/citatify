@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { convertFirestoreDate, belongsToCurrentUser } from "./Utils/utilities";
 import noProfileImage from "./Assets/noprofile.jpg";
 import Button from "./Components/Button";
@@ -32,6 +32,7 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }
   };
 
   const handleRemove = async () => {
+    setShowModal(false);
     try {
       await onRemove(id);
     } catch (error) {
@@ -46,6 +47,10 @@ const Comment = ({ content, id, currentUser, user, createdAt, onEdit, onRemove }
     }
     setEditMode(prevMode => !prevMode);
   };
+
+  useEffect(() => {
+    console.log(showModal);
+  }, [showModal]);
 
   return (
     <article className="container mt-5">

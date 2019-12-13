@@ -46,19 +46,14 @@ const PostPage = ({ match }) => {
 
   // Create the comment and invoke increaseCommentCount function. Getting the user from AuthContext.
   const createComment = async comment => {
-    try {
-      await docRef()
-        .collection("comments")
-        .add({
-          content: comment,
-          createdAt: new Date(),
-          user
-        });
-
-      increaseCommentCount();
-    } catch (error) {
-      console.error(error);
-    }
+    await docRef()
+      .collection("comments")
+      .add({
+        content: comment,
+        createdAt: new Date(),
+        user
+      });
+    increaseCommentCount();
   };
 
   // Increase the comment count. Will be invoked after the comment is created from createComment function.
@@ -77,29 +72,21 @@ const PostPage = ({ match }) => {
   // Using postId to reference the post. Then we get the specific comment by taking in the id as parameter to the function.
   // Update comment content with new content that is the second parameter to this function.
 
-  const editComment = async (id, content) => {
-    try {
-      await docRef()
-        .collection("comments")
-        .doc(id)
-        .update({
-          content
-        });
-    } catch (error) {
-      throw new Error(error);
-    }
+  const editComment = (id, content) => {
+    return docRef()
+      .collection("comments")
+      .doc(id)
+      .update({
+        content
+      });
   };
 
   const removeComment = async id => {
-    try {
-      await docRef()
-        .collection("comments")
-        .doc(id)
-        .delete();
-      decreaseCommentCount();
-    } catch (error) {
-      throw new Error(error);
-    }
+    await docRef()
+      .collection("comments")
+      .doc(id)
+      .delete();
+    decreaseCommentCount();
   };
 
   return (

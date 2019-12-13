@@ -43,8 +43,10 @@ const Post = ({
   };
 
   const onAddStar = () => {
-    postRef.update({ favorites: favorites + 1 });
-    setCanStar(false);
+    if (canStar && currentUser) {
+      postRef.update({ favorites: favorites + 1 });
+      setCanStar(false);
+    }
   };
 
   const toggleModal = () => setShowModal(!showModal);
@@ -96,7 +98,7 @@ const Post = ({
               src={likeIcon}
               alt="like"
               className="card__title-icon-like"
-              onClick={canStar && currentUser && onAddStar}
+              onClick={onAddStar}
             />
             <p className="mb-0">{favorites}</p>
           </div>

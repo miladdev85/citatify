@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import Input from "./Components/Input";
 import Button from "./Components/Button";
+import ErrorMsg from "./ErrorMsg";
 
 const AddComment = ({ onCreate }) => {
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = event => setContent(event.target.value);
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    onCreate(content);
-    setContent("");
+
+    try {
+      setLoading(true);
+      await onCreate(content);
+      setLoading(false);
+      setContent("");
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
   };
 
   return (
@@ -26,11 +37,16 @@ const AddComment = ({ onCreate }) => {
             value={content}
             onChange={handleChange}
           />
+          {error && <ErrorMsg message={error.message} />}
         </div>
       </div>
       <div className="d-flex justify-content-end mb-5">
-        <Button className="btn-sm btn-mdb-color px-3 py-2 mx-0" type="submit" disabled={!content}>
-          Submit
+        <Button
+          className="btn-sm btn-mdb-color px-3 py-2 mx-0"
+          type="submit"
+          disabled={!content || loading}
+        >
+          {loading ? "Submitting" : "Submit"}
         </Button>
       </div>
     </form>

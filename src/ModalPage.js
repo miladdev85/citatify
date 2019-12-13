@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   MDBContainer,
   MDBBtn,
@@ -9,8 +9,22 @@ import {
 } from "mdbreact";
 
 const ModalPage = ({ title, confirm, cancel, show, toggle, submit, children }) => {
+  const clickHandle = useCallback(
+    event => {
+      if (event.target.classList.contains("modal")) {
+        toggle();
+      }
+    },
+    [toggle]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousedown", clickHandle);
+    return () => document.removeEventListener("mousedown", clickHandle);
+  }, [clickHandle]);
+
   return (
-    <MDBContainer onClick={toggle}>
+    <MDBContainer>
       <MDBModal isOpen={show} toggle={toggle} centered>
         <MDBModalHeader toggle={toggle}>{title}</MDBModalHeader>
         <MDBModalBody>{children}</MDBModalBody>
