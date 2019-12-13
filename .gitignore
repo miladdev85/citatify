@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # functions & firebase
-functions/node_modules
-.firebase
+/functions
+/.firebase
 firestore.rules
 
 #build 
